@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(openspec validate:*)",
+      "Bash(openspec show:*)",
+      "Bash(go mod init:*)",
+      "Bash(go get:*)",
+      "Bash(go build:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\n添加矩阵字符雨效果 - 符动世界首个核心特效\n\n实现了经典黑客帝国风格的字符雨效果，包括：\n- 完整的 OpenSpec 变更提案和规格文档\n- 核心字符雨引擎（支持多字符集、速度/密度可调）\n- 颜色渐变效果（亮白→绿色→暗绿）\n- 终端自适应和跨平台支持\n- 可执行示例程序（支持命令行参数配置）\n\n技术栈：Go + tcell 终端库\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git commit:*)",
+      "Bash(openspec list:*)"
+    ]
+  }
+}
