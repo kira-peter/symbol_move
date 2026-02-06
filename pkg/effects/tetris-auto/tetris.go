@@ -202,11 +202,16 @@ func (t *TetrisAuto) findBestMove() int {
 				if cell == 0 {
 					continue
 				}
+				// 边界检查
+				checkX := x + dx
+				if checkX < 0 || checkX >= t.boardW {
+					continue
+				}
 				// 检查下方是否有空洞
 				checkY := testY + dy + 1
 				if checkY < t.boardH {
 					for cy := checkY; cy < t.boardH; cy++ {
-						if t.board[cy][x+dx] == 0 {
+						if t.board[cy][checkX] == 0 {
 							holes++
 						}
 					}
