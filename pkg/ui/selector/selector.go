@@ -69,7 +69,7 @@ func (s *Selector) renderTitle() {
 	s.drawHorizontalLine(titleY + 3)
 }
 
-// renderEffectList 渲染特效列表
+// renderEffectList 渲染特效列表（支持多列）
 func (s *Selector) renderEffectList() {
 	startY := 6
 
@@ -79,33 +79,56 @@ func (s *Selector) renderEffectList() {
 		return
 	}
 
+	// 计算列数和每列行数
+	maxRowsPerColumn := 10
+	totalEffects := len(s.effectList)
+	columns := (totalEffects + maxRowsPerColumn - 1) / maxRowsPerColumn
+
+	// 每列宽度（包括序号、名称、间距）
+	columnWidth := 30
+
+	// 计算总宽度并居中
+	totalWidth := columns * columnWidth
+	startX := (s.width - totalWidth) / 2
+	if startX < 0 {
+		startX = 2
+	}
+
+	// 绘制特效列表
 	for i, metadata := range s.effectList {
-		y := startY + i
+		// 计算当前特效所在的列和行
+		col := i / maxRowsPerColumn
+		row := i % maxRowsPerColumn
+
+		x := startX + col*columnWidth
+		y := startY + row
+
+		// 避免超出屏幕
 		if y >= s.height-5 {
-			break // 避免超出屏幕
+			break
 		}
 
 		// 序号
-		indexText := fmt.Sprintf("%d.", i+1)
+		indexText := fmt.Sprintf("%2d.", i+1)
 
 		// 特效名称
 		nameText := metadata.Name
 
 		// 完整文本
-		text := fmt.Sprintf("  %s%s", indexText, nameText)
+		text := fmt.Sprintf("  %s %s", indexText, nameText)
 
 		// 选中状态
 		style := tcell.StyleDefault.Foreground(tcell.ColorWhite)
 		if i == s.selectedIdx {
 			// 高亮选中项
-			text = fmt.Sprintf("►%s%s", indexText, nameText)
+			text = fmt.Sprintf("►%s %s", indexText, nameText)
 			style = tcell.StyleDefault.
 				Foreground(tcell.ColorBlack).
 				Background(tcell.ColorLightGreen).
 				Bold(true)
 		}
 
-		s.drawText(s.width/2-20, y, text, style)
+		s.drawText(x, y, text, style)
 	}
 }
 
@@ -136,7 +159,7 @@ func (s *Selector) renderHints() {
 	hintY := s.height - 2
 	s.drawHorizontalLine(hintY - 1)
 
-	hints := "↑↓:选择 | Enter:确认 | q/Ctrl+C:退出"
+	hints := "↑↓←→:选择 | Enter:确认 | 1-9/0:快捷键 | q/Ctrl+C:退出"
 	s.drawCenteredText(hintY, hints, tcell.StyleDefault.
 		Foreground(tcell.ColorGray))
 }
@@ -204,11 +227,25 @@ func (s *Selector) HandleKey(event *tcell.EventKey) int {
 		return -1
 	}
 
+	maxRowsPerColumn := 10
+
 	switch event.Key() {
 	case tcell.KeyUp:
 		s.MoveUp()
 	case tcell.KeyDown:
 		s.MoveDown()
+	case tcell.KeyLeft:
+		// 向左移动一列（减少maxRowsPerColumn）
+		newIdx := s.selectedIdx - maxRowsPerColumn
+		if newIdx >= 0 {
+			s.selectedIdx = newIdx
+		}
+	case tcell.KeyRight:
+		// 向右移动一列（增加maxRowsPerColumn）
+		newIdx := s.selectedIdx + maxRowsPerColumn
+		if newIdx < len(s.effectList) {
+			s.selectedIdx = newIdx
+		}
 	case tcell.KeyEnter:
 		return s.selectedIdx
 	case tcell.KeyRune:
@@ -217,6 +254,18 @@ func (s *Selector) HandleKey(event *tcell.EventKey) int {
 			s.MoveUp()
 		case 'j', 'J':
 			s.MoveDown()
+		case 'h', 'H':
+			// vim风格左移
+			newIdx := s.selectedIdx - maxRowsPerColumn
+			if newIdx >= 0 {
+				s.selectedIdx = newIdx
+			}
+		case 'l', 'L':
+			// vim风格右移
+			newIdx := s.selectedIdx + maxRowsPerColumn
+			if newIdx < len(s.effectList) {
+				s.selectedIdx = newIdx
+			}
 		case 'q', 'Q':
 			return -2 // 退出信号
 		default:
@@ -225,6 +274,12 @@ func (s *Selector) HandleKey(event *tcell.EventKey) int {
 				idx := int(event.Rune() - '1')
 				if idx < len(s.effectList) {
 					s.selectedIdx = idx
+					return s.selectedIdx
+				}
+			} else if event.Rune() == '0' {
+				// 0对应第10个
+				if 9 < len(s.effectList) {
+					s.selectedIdx = 9
 					return s.selectedIdx
 				}
 			}

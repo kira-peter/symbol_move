@@ -132,9 +132,27 @@ func (b *BigClock) Render() {
 	now := time.Now()
 	timeStr := now.Format("15:04:05")
 
-	// 计算起始位置（居中）
-	charWidth := 6
-	totalWidth := len(timeStr) * charWidth
+	// 计算每个字符的实际显示宽度
+	calcWidth := func(s string) int {
+		w := 0
+		for _, ch := range s {
+			if ch > 127 {
+				w += 2
+			} else {
+				w += 1
+			}
+		}
+		return w
+	}
+
+	// 计算总宽度
+	totalWidth := 0
+	for _, ch := range timeStr {
+		if lines, ok := b.digits[ch]; ok && len(lines) > 0 {
+			totalWidth += calcWidth(lines[0])
+		}
+	}
+
 	startX := (b.width - totalWidth) / 2
 	startY := (b.height - 5) / 2
 
@@ -143,7 +161,10 @@ func (b *BigClock) Render() {
 	for _, ch := range timeStr {
 		if lines, ok := b.digits[ch]; ok {
 			b.renderDigit(x, startY, lines)
-			x += charWidth
+			// 移动到下一个字符位置
+			if len(lines) > 0 {
+				x += calcWidth(lines[0])
+			}
 		}
 	}
 
@@ -154,12 +175,19 @@ func (b *BigClock) renderDigit(x, y int, lines []string) {
 	style := tcell.StyleDefault.Foreground(b.config.Color).Bold(true)
 
 	for row, line := range lines {
-		for col, ch := range line {
-			if ch != ' ' {
-				px, py := x+col, y+row
-				if px >= 0 && px < b.width && py >= 0 && py < b.height {
-					b.screen.SetContent(px, py, ch, nil, style)
-				}
+		px := x
+		for _, ch := range line {
+			py := y + row
+			if py >= 0 && py < b.height && px >= 0 && px < b.width {
+				// 绘制所有字符（包括空格），保持布局正确
+				var comb []rune
+				b.screen.SetContent(px, py, ch, comb, style)
+			}
+			// 中文字符占2个宽度
+			if ch > 127 {
+				px += 2
+			} else {
+				px += 1
 			}
 		}
 	}
