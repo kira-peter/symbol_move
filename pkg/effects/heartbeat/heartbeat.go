@@ -87,7 +87,10 @@ func (h *Heartbeat) Render() {
 	centerX := h.width / 2
 	centerY := h.height / 2
 	artHeight := len(h.asciiArt)
-	artWidth := len(h.asciiArt[0])
+
+	// 简化：直接使用字符数作为宽度（不区分中英文）
+	// 因为 █ 在大多数终端中实际占1个cell
+	artWidth := len([]rune(h.asciiArt[0])) // rune数量
 
 	// 绘制缩放后的心形
 	for i, line := range h.asciiArt {
@@ -97,11 +100,14 @@ func (h *Heartbeat) Render() {
 			continue
 		}
 
-		for j, ch := range line {
+		// 遍历每个字符
+		runes := []rune(line)
+		for j, ch := range runes {
 			if ch == ' ' {
 				continue
 			}
 
+			// 计算缩放后的x位置
 			scaledX := centerX + int((float64(j)-float64(artWidth)/2)*scale)
 
 			if scaledX < 0 || scaledX >= h.width {

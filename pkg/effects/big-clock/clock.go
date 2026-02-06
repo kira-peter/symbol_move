@@ -132,24 +132,11 @@ func (b *BigClock) Render() {
 	now := time.Now()
 	timeStr := now.Format("15:04:05")
 
-	// 计算每个字符的实际显示宽度
-	calcWidth := func(s string) int {
-		w := 0
-		for _, ch := range s {
-			if ch > 127 {
-				w += 2
-			} else {
-				w += 1
-			}
-		}
-		return w
-	}
-
-	// 计算总宽度
+	// 计算总宽度（每个字符的ASCII艺术宽度）
 	totalWidth := 0
 	for _, ch := range timeStr {
 		if lines, ok := b.digits[ch]; ok && len(lines) > 0 {
-			totalWidth += calcWidth(lines[0])
+			totalWidth += len(lines[0]) // ASCII艺术每个字符占用的宽度
 		}
 	}
 
@@ -163,7 +150,7 @@ func (b *BigClock) Render() {
 			b.renderDigit(x, startY, lines)
 			// 移动到下一个字符位置
 			if len(lines) > 0 {
-				x += calcWidth(lines[0])
+				x += len(lines[0])
 			}
 		}
 	}
@@ -178,17 +165,13 @@ func (b *BigClock) renderDigit(x, y int, lines []string) {
 		px := x
 		for _, ch := range line {
 			py := y + row
-			if py >= 0 && py < b.height && px >= 0 && px < b.width {
-				// 绘制所有字符（包括空格），保持布局正确
+			// 只绘制非空格字符
+			if ch != ' ' && py >= 0 && py < b.height && px >= 0 && px < b.width {
 				var comb []rune
 				b.screen.SetContent(px, py, ch, comb, style)
 			}
-			// 中文字符占2个宽度
-			if ch > 127 {
-				px += 2
-			} else {
-				px += 1
-			}
+			// 移动到下一个字符位置（每个ASCII字符占1个宽度）
+			px += 1
 		}
 	}
 }
