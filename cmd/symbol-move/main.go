@@ -6,7 +6,19 @@ import (
 
 	"github.com/gdamore/tcell/v2"
 	"github.com/symbolmove/symbol_move/pkg/effects"
-	_ "github.com/symbolmove/symbol_move/pkg/effects/matrix-rain" // 自动注册
+	_ "github.com/symbolmove/symbol_move/pkg/effects/audio-visualizer" // 自动注册
+	_ "github.com/symbolmove/symbol_move/pkg/effects/big-clock"        // 自动注册
+	_ "github.com/symbolmove/symbol_move/pkg/effects/digital-waterfall" // 自动注册
+	_ "github.com/symbolmove/symbol_move/pkg/effects/fire-effect"      // 自动注册
+	_ "github.com/symbolmove/symbol_move/pkg/effects/game-of-life"     // 自动注册
+	_ "github.com/symbolmove/symbol_move/pkg/effects/matrix-rain"      // 自动注册
+	_ "github.com/symbolmove/symbol_move/pkg/effects/maze-generator"   // 自动注册
+	_ "github.com/symbolmove/symbol_move/pkg/effects/particle-burst"   // 自动注册
+	_ "github.com/symbolmove/symbol_move/pkg/effects/plasma"           // 自动注册
+	_ "github.com/symbolmove/symbol_move/pkg/effects/rainbow-wave"     // 自动注册
+	_ "github.com/symbolmove/symbol_move/pkg/effects/snowfall"         // 自动注册
+	_ "github.com/symbolmove/symbol_move/pkg/effects/starry-sky"       // 自动注册
+	_ "github.com/symbolmove/symbol_move/pkg/effects/wave-text"        // 自动注册
 	"github.com/symbolmove/symbol_move/pkg/ui/selector"
 )
 
