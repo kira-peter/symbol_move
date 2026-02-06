@@ -20,7 +20,7 @@ func (e *PlasmaEffect) Metadata() effects.Metadata {
 	return effects.Metadata{
 		ID:          "plasma",
 		Name:        "Plasma 等离子",
-		Description: "彩色等离子云效果，使用正弦函数生成图案，颜色循环动画",
+		Description: "彩色等离子云效果,使用正弦函数生成图案,颜色循环动画",
 		LongDescription: `
 Plasma 等离子特效使用数学函数生成美丽的等离子云图案。
 

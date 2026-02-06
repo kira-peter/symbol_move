@@ -20,7 +20,7 @@ func (e *GameOfLifeEffect) Metadata() effects.Metadata {
 	return effects.Metadata{
 		ID:          "game-of-life",
 		Name:        "生命游戏",
-		Description: "Conway's Game of Life 细胞自动机，随机初始状态",
+		Description: "Conway's Game of Life细胞自动机,随机初始状态",
 		LongDescription: `
 生命游戏特效实现了经典的 Conway's Game of Life 算法。
 

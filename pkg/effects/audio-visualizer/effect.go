@@ -20,7 +20,7 @@ func (e *AudioVisualizerEffect) Metadata() effects.Metadata {
 	return effects.Metadata{
 		ID:          "audio-visualizer",
 		Name:        "音频可视化",
-		Description: "模拟音频波形展示，使用随机或正弦波数据，频谱柱状图效果",
+		Description: "模拟音频波形展示,使用随机或正弦波数据,频谱柱状图效果",
 		LongDescription: `
 音频可视化特效模拟音频频谱显示效果。
 

@@ -53,7 +53,7 @@ func (s *Selector) Render() {
 
 // renderTitle 渲染标题
 func (s *Selector) renderTitle() {
-	title := "符动世界 (SymbolMove)"
+	title := "符动世界(SymbolMove)"
 	subtitle := "字符符号在动，创造世界"
 
 	// 居中显示标题
@@ -80,8 +80,8 @@ func (s *Selector) renderEffectList() {
 	}
 
 	for i, metadata := range s.effectList {
-		y := startY + i*2
-		if y >= s.height-8 {
+		y := startY + i
+		if y >= s.height-5 {
 			break // 避免超出屏幕
 		}
 
@@ -92,13 +92,13 @@ func (s *Selector) renderEffectList() {
 		nameText := metadata.Name
 
 		// 完整文本
-		text := fmt.Sprintf("  %s %s", indexText, nameText)
+		text := fmt.Sprintf("  %s%s", indexText, nameText)
 
 		// 选中状态
 		style := tcell.StyleDefault.Foreground(tcell.ColorWhite)
 		if i == s.selectedIdx {
 			// 高亮选中项
-			text = fmt.Sprintf("► %s %s", indexText, nameText)
+			text = fmt.Sprintf("►%s%s", indexText, nameText)
 			style = tcell.StyleDefault.
 				Foreground(tcell.ColorBlack).
 				Background(tcell.ColorLightGreen).
@@ -120,16 +120,14 @@ func (s *Selector) renderDescription() {
 
 	s.drawHorizontalLine(descY - 1)
 
-	// 描述标题
-	s.drawText(4, descY, "描述：", tcell.StyleDefault.
-		Foreground(tcell.ColorYellow))
-
-	// 描述内容
+	// 描述（标签+内容）
 	desc := metadata.Description
-	if len(desc) > s.width-12 {
-		desc = desc[:s.width-15] + "..."
+	maxLen := s.width - 10 // 减去"描述:"的长度和边距
+	if len(desc) > maxLen {
+		desc = desc[:maxLen-3] + "..."
 	}
-	s.drawText(10, descY, desc, tcell.StyleDefault.
+	fullDesc := "描述:" + desc
+	s.drawText(4, descY, fullDesc, tcell.StyleDefault.
 		Foreground(tcell.ColorWhite))
 }
 
@@ -138,7 +136,7 @@ func (s *Selector) renderHints() {
 	hintY := s.height - 2
 	s.drawHorizontalLine(hintY - 1)
 
-	hints := "↑↓: 选择  |  Enter: 确认  |  q/Ctrl+C: 退出"
+	hints := "↑↓:选择 | Enter:确认 | q/Ctrl+C:退出"
 	s.drawCenteredText(hintY, hints, tcell.StyleDefault.
 		Foreground(tcell.ColorGray))
 }
@@ -149,16 +147,40 @@ func (s *Selector) drawText(x, y int, text string, style tcell.Style) {
 		return
 	}
 
-	for i, ch := range text {
-		if x+i >= 0 && x+i < s.width {
-			s.screen.SetContent(x+i, y, ch, nil, style)
+	pos := x
+	for _, ch := range text {
+		if pos >= 0 && pos < s.width {
+			var comb []rune
+			w := 1
+			// 中文等宽字符占2个位置
+			if ch > 127 {
+				w = 2
+			}
+			s.screen.SetContent(pos, y, ch, comb, style)
+			pos += w
+		} else {
+			// 跳过不在范围内的字符，但仍需计算位置
+			w := 1
+			if ch > 127 {
+				w = 2
+			}
+			pos += w
 		}
 	}
 }
 
 // drawCenteredText 居中绘制文本
 func (s *Selector) drawCenteredText(y int, text string, style tcell.Style) {
-	x := (s.width - len(text)) / 2
+	// 计算文本的显示宽度（中文字符占2个宽度）
+	textWidth := 0
+	for _, ch := range text {
+		if ch > 127 {
+			textWidth += 2
+		} else {
+			textWidth += 1
+		}
+	}
+	x := (s.width - textWidth) / 2
 	if x < 0 {
 		x = 0
 	}

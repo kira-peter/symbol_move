@@ -23,7 +23,7 @@ func (e *WaveTextEffect) Metadata() effects.Metadata {
 	return effects.Metadata{
 		ID:          "wave-text",
 		Name:        "波浪文字",
-		Description: "显示文字以正弦波形式上下波动，配有彩色渐变效果",
+		Description: "显示文字以正弦波形式上下波动,配有彩色渐变效果",
 		LongDescription: `
 波浪文字特效让文本像波浪一样上下起伏，并伴随彩虹渐变。
 

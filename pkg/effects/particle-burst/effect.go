@@ -20,7 +20,7 @@ func (e *ParticleBurstEffect) Metadata() effects.Metadata {
 	return effects.Metadata{
 		ID:          "particle-burst",
 		Name:        "粒子爆炸",
-		Description: "从中心点向外爆炸的粒子效果，粒子随时间衰减和消失",
+		Description: "从中心点向外爆炸的粒子效果,粒子随时间衰减和消失",
 		LongDescription: `
 粒子爆炸特效展示壮观的粒子物理动画。
 

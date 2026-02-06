@@ -20,7 +20,7 @@ func (e *MazeGeneratorEffect) Metadata() effects.Metadata {
 	return effects.Metadata{
 		ID:          "maze-generator",
 		Name:        "迷宫生成",
-		Description: "实时展示迷宫生成过程，使用 DFS 算法",
+		Description: "实时展示迷宫生成过程,使用DFS算法",
 		LongDescription: `
 迷宫生成特效展示深度优先搜索算法生成迷宫的过程。
 

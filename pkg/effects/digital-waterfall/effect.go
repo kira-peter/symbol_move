@@ -23,7 +23,7 @@ func (e *DigitalWaterfallEffect) Metadata() effects.Metadata {
 	return effects.Metadata{
 		ID:          "digital-waterfall",
 		Name:        "数字瀑布",
-		Description: "数字 0-9 从上到下快速流动，绿色主题的数字瀑布效果",
+		Description: "数字0-9从上到下快速流动,绿色主题的数字瀑布效果",
 		LongDescription: `
 数字瀑布特效模拟黑客帝国风格的数字流动效果。
 

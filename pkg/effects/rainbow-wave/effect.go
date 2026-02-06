@@ -23,7 +23,7 @@ func (e *RainbowWaveEffect) Metadata() effects.Metadata {
 	return effects.Metadata{
 		ID:          "rainbow-wave",
 		Name:        "彩虹波浪",
-		Description: "彩虹色的水平波浪从左到右滚动，充满整个屏幕",
+		Description: "彩虹色的水平波浪从左到右滚动,充满整个屏幕",
 		LongDescription: `
 彩虹波浪特效展示美丽的彩虹色波浪动画。
 

@@ -20,7 +20,7 @@ func (e *BigClockEffect) Metadata() effects.Metadata {
 	return effects.Metadata{
 		ID:          "big-clock",
 		Name:        "大字时钟",
-		Description: "使用大字符（ASCII Art）显示当前时间，每秒更新",
+		Description: "使用大字符(ASCII Art)显示当前时间,每秒更新",
 		LongDescription: `
 大字时钟特效使用 ASCII 艺术字显示当前时间。
 

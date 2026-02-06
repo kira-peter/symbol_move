@@ -20,7 +20,7 @@ func (e *FireEffectEffect) Metadata() effects.Metadata {
 	return effects.Metadata{
 		ID:          "fire-effect",
 		Name:        "火焰燃烧",
-		Description: "从底部向上燃烧的火焰效果，使用字符密度模拟火焰形状",
+		Description: "从底部向上燃烧的火焰效果,使用字符密度模拟火焰形状",
 		LongDescription: `
 火焰燃烧特效模拟真实的火焰向上燃烧效果。
 
