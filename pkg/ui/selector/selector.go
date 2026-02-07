@@ -11,11 +11,11 @@ import (
 
 // Selector 特效选择器
 type Selector struct {
-	screen       tcell.Screen
-	effectList   []effects.Metadata
-	selectedIdx  int
-	width        int
-	height       int
+	screen      tcell.Screen
+	effectList  []effects.Metadata
+	selectedIdx int
+	width       int
+	height      int
 }
 
 // New 创建新的选择器
@@ -124,10 +124,9 @@ func (s *Selector) renderEffectList() {
 		style := tcell.StyleDefault.Foreground(tcell.ColorWhite)
 		if i == s.selectedIdx {
 			// 高亮选中项
-			text = fmt.Sprintf("►%s %s", indexText, nameText)
+			text = fmt.Sprintf("> %s %s", indexText, nameText)
 			style = tcell.StyleDefault.
-				Foreground(tcell.ColorBlack).
-				Background(tcell.ColorLightGreen).
+				Foreground(tcell.ColorGreen).
 				Bold(true)
 		}
 
@@ -241,11 +240,18 @@ func (s *Selector) HandleKey(event *tcell.EventKey) int {
 
 	maxRowsPerColumn := 10
 
-	// 处理 Ctrl+Space 切换语言
-	if event.Key() == tcell.KeyCtrlSpace {
+	// 处理 Ctrl+Space 切换语言 (尝试多种方式捕获)
+	// 方式1: 检查 Ctrl + 空格字符 (某些终端)
+	if event.Key() == tcell.KeyRune && event.Rune() == ' ' && event.Modifiers()&tcell.ModCtrl != 0 {
 		mgr := i18n.GetManager()
 		mgr.ToggleAndSave()
 		return -3 // 返回 -3 表示需要重新渲染
+	}
+	// 方式2: 检查 NUL 字符 (Ctrl+Space 在某些终端发送 0x00)
+	if event.Key() == tcell.KeyNUL || event.Key() == tcell.KeyRune && event.Rune() == 0 {
+		mgr := i18n.GetManager()
+		mgr.ToggleAndSave()
+		return -3
 	}
 
 	switch event.Key() {
@@ -287,6 +293,11 @@ func (s *Selector) HandleKey(event *tcell.EventKey) int {
 			}
 		case 'q', 'Q':
 			return -2 // 退出信号
+		case 't', 'T':
+			// 切换语言 (备用快捷键)
+			mgr := i18n.GetManager()
+			mgr.ToggleAndSave()
+			return -3
 		default:
 			// 数字快捷键
 			if event.Rune() >= '1' && event.Rune() <= '9' {

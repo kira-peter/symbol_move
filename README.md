@@ -100,7 +100,7 @@ go build -o matrix-rain.exe ./cmd/matrix-rain
 - `→` / `l` - 向右列移动
 - `Enter` - 运行选中的特效
 - `ESC` - 从特效返回主界面
-- `Ctrl+Space` - 切换界面语言（中文/English）
+- `T` 或 `t` - 切换界面语言（中文/English）
 - `q` / `Ctrl+C` - 退出程序
 - `1-9` / `0` - 数字快捷键直接选择
 

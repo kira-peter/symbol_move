@@ -15,14 +15,14 @@ var uiTexts = map[Language]map[string]string{
 		KeyTitle:             "符动世界(SymbolMove)",
 		KeySubtitle:          "字符符号在动，创造世界",
 		KeyDescLabel:         "描述:",
-		KeyHints:             "↑↓←→:选择 | Enter:确认 | 1-9/0:快捷键 | Ctrl+Space:切换语言 | q/Ctrl+C:退出",
+		KeyHints:             "↑↓←→:选择 | Enter:确认 | 1-9/0:快捷键 | T:切换语言 | q/Ctrl+C:退出",
 		KeyLanguageIndicator: "中文",
 	},
 	LanguageEnglish: {
 		KeyTitle:             "SymbolMove",
 		KeySubtitle:          "Characters in Motion, Creating Worlds",
 		KeyDescLabel:         "Description:",
-		KeyHints:             "↑↓←→:Select | Enter:Confirm | 1-9/0:Shortcut | Ctrl+Space:Switch Lang | q/Ctrl+C:Quit",
+		KeyHints:             "↑↓←→:Select | Enter:Confirm | 1-9/0:Shortcut | T:Switch Lang | q/Ctrl+C:Quit",
 		KeyLanguageIndicator: "English",
 	},
 }
