@@ -28,11 +28,17 @@ type Metadata struct {
 	// ID 特效唯一标识符（kebab-case）
 	ID string
 
-	// Name 特效显示名称
+	// Name 特效显示名称（中文）
 	Name string
 
-	// Description 特效描述（简短说明）
+	// Description 特效描述（简短说明，中文）
 	Description string
+
+	// NameEN 特效显示名称（英文）
+	NameEN string
+
+	// DescriptionEN 特效描述（简短说明，英文）
+	DescriptionEN string
 
 	// LongDescription 详细描述（可选）
 	LongDescription string

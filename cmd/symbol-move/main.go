@@ -29,10 +29,15 @@ import (
 	_ "github.com/symbolmove/symbol_move/pkg/effects/typewriter-code"   // 自动注册
 	_ "github.com/symbolmove/symbol_move/pkg/effects/water-ripple"      // 自动注册
 	_ "github.com/symbolmove/symbol_move/pkg/effects/wave-text"         // 自动注册
+	"github.com/symbolmove/symbol_move/pkg/i18n"
 	"github.com/symbolmove/symbol_move/pkg/ui/selector"
 )
 
 func main() {
+	// 加载用户语言配置
+	mgr := i18n.GetManager()
+	mgr.LoadConfig() // 忽略错误，使用默认值
+
 	// 初始化终端
 	screen, err := tcell.NewScreen()
 	if err != nil {
@@ -103,6 +108,11 @@ func waitForSelection(screen tcell.Screen, sel *selector.Selector) (int, bool) {
 			result := sel.HandleKey(ev)
 			if result == -2 {
 				return -1, true // 用户按 q 退出
+			}
+			if result == -3 {
+				// 语言切换，重新渲染
+				sel.Render()
+				continue
 			}
 			if result >= 0 {
 				return result, false // 用户选择了特效

@@ -21,9 +21,11 @@ func NewEffect() effects.Effect {
 // Metadata 返回特效元数据
 func (e *OceanWaveEffect) Metadata() effects.Metadata {
 	return effects.Metadata{
-		ID:          "ocean-wave",
-		Name:        "字符海浪",
-		Description: "模拟海浪波动的自然效果",
+		ID:            "ocean-wave",
+		Name:          "字符海浪",
+		Description:   "模拟海浪波动的自然效果",
+		NameEN:        "Ocean Wave",
+		DescriptionEN: "Simulates natural ocean wave motion",
 		LongDescription: `
 字符海浪特效展示了海洋的波涛起伏，多层波浪叠加形成真实的海浪效果。
 

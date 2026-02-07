@@ -18,9 +18,11 @@ func NewEffect() effects.Effect {
 
 func (e *MazeGeneratorEffect) Metadata() effects.Metadata {
 	return effects.Metadata{
-		ID:          "maze-generator",
-		Name:        "迷宫生成",
-		Description: "实时展示迷宫生成过程,使用DFS算法",
+		ID:            "maze-generator",
+		Name:          "迷宫生成",
+		Description:   "实时展示迷宫生成过程,使用DFS算法",
+		NameEN:        "Maze Generator",
+		DescriptionEN: "Real-time maze generation process using DFS algorithm",
 		LongDescription: `
 迷宫生成特效展示深度优先搜索算法生成迷宫的过程。
 

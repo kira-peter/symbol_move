@@ -21,9 +21,11 @@ func NewEffect() effects.Effect {
 // Metadata 返回特效元数据
 func (e *SnowfallEffect) Metadata() effects.Metadata {
 	return effects.Metadata{
-		ID:          "snowfall",
-		Name:        "雪花飘落",
-		Description: "浪漫的雪花从天而降",
+		ID:            "snowfall",
+		Name:          "雪花飘落",
+		Description:   "浪漫的雪花从天而降",
+		NameEN:        "Snowfall",
+		DescriptionEN: "Romantic snowflakes falling from above",
 		LongDescription: `
 雪花飘落特效模拟冬日雪景，展现雪花轻盈飘落的美妙瞬间。
 

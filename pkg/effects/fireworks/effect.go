@@ -21,9 +21,11 @@ func NewEffect() effects.Effect {
 // Metadata 返回特效元数据
 func (e *FireworksEffect) Metadata() effects.Metadata {
 	return effects.Metadata{
-		ID:          "fireworks",
-		Name:        "烟花绽放",
-		Description: "模拟烟花绽放的粒子效果",
+		ID:            "fireworks",
+		Name:          "烟花绽放",
+		Description:   "模拟烟花绽放的粒子效果",
+		NameEN:        "Fireworks",
+		DescriptionEN: "Simulates fireworks explosion with particle effects",
 		LongDescription: `
 烟花绽放特效模拟了真实的烟花效果，包括上升和爆炸两个阶段。
 

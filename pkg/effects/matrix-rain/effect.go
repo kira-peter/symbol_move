@@ -30,9 +30,11 @@ func NewEffectWithConfig(config *Config) effects.Effect {
 // Metadata 返回特效元数据
 func (e *MatrixRainEffect) Metadata() effects.Metadata {
 	return effects.Metadata{
-		ID:          "matrix-rain",
-		Name:        "矩阵字符雨",
-		Description: "经典黑客帝国风格字符雨效果",
+		ID:            "matrix-rain",
+		Name:          "矩阵字符雨",
+		Description:   "经典黑客帝国风格字符雨效果",
+		NameEN:        "Matrix Rain",
+		DescriptionEN: "Classic Matrix-style digital rain effect",
 		LongDescription: `经典的"黑客帝国"风格字符雨特效。
 
 特性：

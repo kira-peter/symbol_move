@@ -21,9 +21,11 @@ func NewEffect() effects.Effect {
 // Metadata 返回特效元数据
 func (e *DNAHelixEffect) Metadata() effects.Metadata {
 	return effects.Metadata{
-		ID:          "dna-helix",
-		Name:        "DNA双螺旋",
-		Description: "模拟DNA双螺旋结构的3D旋转动画",
+		ID:            "dna-helix",
+		Name:          "DNA双螺旋",
+		Description:   "模拟DNA双螺旋结构的3D旋转动画",
+		NameEN:        "DNA Helix",
+		DescriptionEN: "Simulated 3D rotating animation of DNA double helix structure",
 		LongDescription: `
 DNA双螺旋特效展示了生命的基本结构 - DNA的双螺旋形态。
 

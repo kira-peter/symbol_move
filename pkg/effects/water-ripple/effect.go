@@ -21,9 +21,11 @@ func NewEffect() effects.Effect {
 // Metadata 返回特效元数据
 func (e *WaterRippleEffect) Metadata() effects.Metadata {
 	return effects.Metadata{
-		ID:          "water-ripple",
-		Name:        "水波涟漪",
-		Description: "模拟水滴落下形成的涟漪效果",
+		ID:            "water-ripple",
+		Name:          "水波涟漪",
+		Description:   "模拟水滴落下形成的涟漪效果",
+		NameEN:        "Water Ripple",
+		DescriptionEN: "Simulates ripple effects from water drops",
 		LongDescription: `
 水波涟漪特效模拟了水滴落入水面形成的波纹扩散效果。
 

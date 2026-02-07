@@ -21,9 +21,11 @@ func NewEffect() effects.Effect {
 // Metadata 返回特效元数据
 func (e *StarrySkyEffect) Metadata() effects.Metadata {
 	return effects.Metadata{
-		ID:          "starry-sky",
-		Name:        "星空闪烁",
-		Description: "模拟夜空中星星闪烁的效果",
+		ID:            "starry-sky",
+		Name:          "星空闪烁",
+		Description:   "模拟夜空中星星闪烁的效果",
+		NameEN:        "Starry Sky",
+		DescriptionEN: "Simulates twinkling stars in the night sky",
 		LongDescription: `
 星空闪烁特效在终端中渲染一个美丽的夜空，数百颗星星随机闪烁。
 

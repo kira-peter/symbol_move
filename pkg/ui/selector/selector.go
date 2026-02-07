@@ -6,6 +6,7 @@ import (
 
 	"github.com/gdamore/tcell/v2"
 	"github.com/symbolmove/symbol_move/pkg/effects"
+	"github.com/symbolmove/symbol_move/pkg/i18n"
 )
 
 // Selector 特效选择器
@@ -53,8 +54,9 @@ func (s *Selector) Render() {
 
 // renderTitle 渲染标题
 func (s *Selector) renderTitle() {
-	title := "符动世界(SymbolMove)"
-	subtitle := "字符符号在动，创造世界"
+	mgr := i18n.GetManager()
+	title := mgr.T(i18n.KeyTitle)
+	subtitle := mgr.T(i18n.KeySubtitle)
 
 	// 居中显示标题
 	titleY := 2
@@ -95,6 +97,7 @@ func (s *Selector) renderEffectList() {
 	}
 
 	// 绘制特效列表
+	mgr := i18n.GetManager()
 	for i, metadata := range s.effectList {
 		// 计算当前特效所在的列和行
 		col := i / maxRowsPerColumn
@@ -111,8 +114,8 @@ func (s *Selector) renderEffectList() {
 		// 序号
 		indexText := fmt.Sprintf("%2d.", i+1)
 
-		// 特效名称
-		nameText := metadata.Name
+		// 特效名称 - 根据当前语言选择
+		nameText := mgr.GetEffectName(metadata.Name, metadata.NameEN)
 
 		// 完整文本
 		text := fmt.Sprintf("  %s %s", indexText, nameText)
@@ -143,13 +146,16 @@ func (s *Selector) renderDescription() {
 
 	s.drawHorizontalLine(descY - 1)
 
-	// 描述（标签+内容）
-	desc := metadata.Description
-	maxLen := s.width - 10 // 减去"描述:"的长度和边距
+	// 描述（标签+内容）- 使用国际化
+	mgr := i18n.GetManager()
+	descLabel := mgr.T(i18n.KeyDescLabel)
+	desc := mgr.GetEffectDescription(metadata.Description, metadata.DescriptionEN)
+
+	maxLen := s.width - len(descLabel) - 10 // 减去标签长度和边距
 	if len(desc) > maxLen {
 		desc = desc[:maxLen-3] + "..."
 	}
-	fullDesc := "描述:" + desc
+	fullDesc := descLabel + desc
 	s.drawText(4, descY, fullDesc, tcell.StyleDefault.
 		Foreground(tcell.ColorWhite))
 }
@@ -159,8 +165,14 @@ func (s *Selector) renderHints() {
 	hintY := s.height - 2
 	s.drawHorizontalLine(hintY - 1)
 
-	hints := "↑↓←→:选择 | Enter:确认 | 1-9/0:快捷键 | q/Ctrl+C:退出"
-	s.drawCenteredText(hintY, hints, tcell.StyleDefault.
+	mgr := i18n.GetManager()
+	hints := mgr.T(i18n.KeyHints)
+
+	// 语言指示器
+	langIndicator := mgr.T(i18n.KeyLanguageIndicator)
+	hintsWithLang := hints + " | " + langIndicator
+
+	s.drawCenteredText(hintY, hintsWithLang, tcell.StyleDefault.
 		Foreground(tcell.ColorGray))
 }
 
@@ -228,6 +240,13 @@ func (s *Selector) HandleKey(event *tcell.EventKey) int {
 	}
 
 	maxRowsPerColumn := 10
+
+	// 处理 Ctrl+Space 切换语言
+	if event.Key() == tcell.KeyCtrlSpace {
+		mgr := i18n.GetManager()
+		mgr.ToggleAndSave()
+		return -3 // 返回 -3 表示需要重新渲染
+	}
 
 	switch event.Key() {
 	case tcell.KeyUp:

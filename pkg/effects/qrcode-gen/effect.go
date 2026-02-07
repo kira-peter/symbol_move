@@ -21,9 +21,11 @@ func NewEffect() effects.Effect {
 // Metadata 返回特效元数据
 func (e *QRCodeGenEffect) Metadata() effects.Metadata {
 	return effects.Metadata{
-		ID:          "qrcode-gen",
-		Name:        "二维码动画",
-		Description: "生成并展示二维码动画",
+		ID:            "qrcode-gen",
+		Name:          "二维码动画",
+		Description:   "生成并展示二维码动画",
+		NameEN:        "QR Code Animation",
+		DescriptionEN: "Generates and displays animated QR codes",
 		LongDescription: `
 二维码动画特效生成并展示不同内容的二维码。
 

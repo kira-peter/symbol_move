@@ -21,9 +21,11 @@ func NewEffect() effects.Effect {
 // Metadata 返回特效元数据
 func (e *TetrisAutoEffect) Metadata() effects.Metadata {
 	return effects.Metadata{
-		ID:          "tetris-auto",
-		Name:        "俄罗斯方块AI",
-		Description: "AI自动玩俄罗斯方块游戏",
+		ID:            "tetris-auto",
+		Name:          "俄罗斯方块AI",
+		Description:   "AI自动玩俄罗斯方块游戏",
+		NameEN:        "Tetris Auto",
+		DescriptionEN: "AI automatically plays classic Tetris game",
 		LongDescription: `
 俄罗斯方块AI特效展示了AI自动玩经典俄罗斯方块游戏。
 

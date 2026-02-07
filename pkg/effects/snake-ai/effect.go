@@ -21,9 +21,11 @@ func NewEffect() effects.Effect {
 // Metadata 返回特效元数据
 func (e *SnakeAIEffect) Metadata() effects.Metadata {
 	return effects.Metadata{
-		ID:          "snake-ai",
-		Name:        "贪吃蛇AI",
-		Description: "AI自动玩贪吃蛇游戏",
+		ID:            "snake-ai",
+		Name:          "贪吃蛇AI",
+		Description:   "AI自动玩贪吃蛇游戏",
+		NameEN:        "Snake AI",
+		DescriptionEN: "AI automatically plays classic Snake game",
 		LongDescription: `
 贪吃蛇AI特效展示了AI自动玩经典贪吃蛇游戏。
 

@@ -21,9 +21,11 @@ func NewEffect() effects.Effect {
 // Metadata 返回特效元数据
 func (e *MatrixTunnelEffect) Metadata() effects.Metadata {
 	return effects.Metadata{
-		ID:          "matrix-tunnel",
-		Name:        "矩阵隧道",
-		Description: "模拟飞行穿越矩阵隧道的3D效果",
+		ID:            "matrix-tunnel",
+		Name:          "矩阵隧道",
+		Description:   "模拟飞行穿越矩阵隧道的3D效果",
+		NameEN:        "Matrix Tunnel",
+		DescriptionEN: "Simulates 3D flight through a matrix tunnel",
 		LongDescription: `
 矩阵隧道特效展示了飞行穿越充满矩阵字符的3D隧道。
 

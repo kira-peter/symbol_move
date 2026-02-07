@@ -21,9 +21,11 @@ func NewEffect() effects.Effect {
 // Metadata 返回特效元数据
 func (e *HeartbeatEffect) Metadata() effects.Metadata {
 	return effects.Metadata{
-		ID:          "heartbeat",
-		Name:        "心跳律动",
-		Description: "模拟心脏跳动的律动效果",
+		ID:            "heartbeat",
+		Name:          "心跳律动",
+		Description:   "模拟心脏跳动的律动效果",
+		NameEN:        "Heartbeat",
+		DescriptionEN: "Simulates the rhythmic beating of a heart",
 		LongDescription: `
 心跳律动特效在终端中渲染一个跳动的心形，随着心跳节奏进行缩放动画。
 

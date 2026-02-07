@@ -21,9 +21,11 @@ func NewEffect() effects.Effect {
 // Metadata 返回特效元数据
 func (e *TypewriterCodeEffect) Metadata() effects.Metadata {
 	return effects.Metadata{
-		ID:          "typewriter-code",
-		Name:        "打字机代码雨",
-		Description: "模拟打字机逐字显示代码的效果",
+		ID:            "typewriter-code",
+		Name:          "打字机代码雨",
+		Description:   "模拟打字机逐字显示代码的效果",
+		NameEN:        "Typewriter Code",
+		DescriptionEN: "Simulates typewriter-style code display character by character",
 		LongDescription: `
 打字机代码雨特效展示了代码逐字符显示的打字机效果。
 
